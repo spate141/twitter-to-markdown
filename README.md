@@ -38,3 +38,33 @@ The generated Markdown includes:
 - You can **stop** scrolling at any time
 - Duplicate tweets are automatically de-duplicated
 - The extension only runs on twitter.com, x.com, and mobile.twitter.com
+
+## How this started?
+```bash
+> be me, 5:30am scrolling twitter
+> see cool tweet
+> check the replies
+> holy shit interesting conversation
+> "i should write an article about this"
+> brain: "just screenshot it bro"
+> me: "nah let me convert it to markdown first"
+> search for chrome extension
+> no good extensions exist
+> "fine, i'll do it myself"
+> 2 hours later
+> extension works
+> "but what if i make it prettier"
+> spend another hour making UI
+> burn through entire claude hourly limit
+> "might as well publish this"
+> pay google $5 developer fee
+> fill out 47 forms about privacy policy
+> wait for chrome store review
+> suddenly remember
+> i just wanted to write one medium article
+> could've screenshotted in 5 seconds
+> instead built entire chrome extension
+> mfw i overengineered my way out of writing anything
+> mfw still no article
+> mfw this is my life now
+```
