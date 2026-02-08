@@ -1,4 +1,4 @@
-# Twitter/X to Markdown — Chrome Extension
+# Twitter/X to Markdown | Chrome Extension
 
 Scrape any Twitter/X conversation (tweet + all replies) and convert it into clean, structured Markdown.
 

@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Twitter/X to Markdown",
-  "version": "1.0.3",
+  "version": "1.0.0",
   "description": "Scrape Twitter/X conversations and convert them to clean Markdown",
   "permissions": ["activeTab", "scripting"],
   "action": {

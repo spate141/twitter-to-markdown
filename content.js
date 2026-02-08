@@ -173,6 +173,18 @@
       }
     }
 
+    // -- Replying to context --
+    let replyingTo = null;
+    const socialContextEl = el.querySelector(SEL.socialContext);
+    if (socialContextEl) {
+      const contextText = socialContextEl.textContent || "";
+      // Extract handles from "Replying to @user1 @user2"
+      const handleMatches = contextText.match(/@[A-Za-z0-9_]+/g);
+      if (handleMatches && handleMatches.length > 0) {
+        replyingTo = handleMatches; // Array like ["@user1", "@user2"]
+      }
+    }
+
     // -- Tweet text (rich) --
     const tweetTextEl = el.querySelector(SEL.tweetText);
     let textMd = "";
@@ -198,6 +210,8 @@
       displayName,
       handle,
       timestamp,
+      tweetUrl,
+      replyingTo,
       text: textMd,
       quotedTweet,
     };
@@ -277,48 +291,93 @@
   }
 
   /**
+   * Render a single tweet to markdown lines.
+   * @param {Object} t - Tweet object
+   * @param {string} heading - Heading level ("##" or "###")
+   * @param {Array} lines - Array to append markdown lines to
+   * @param {boolean} isOpReply - Whether this is the OP replying in replies section
+   */
+  function renderTweet(t, heading, lines, isOpReply = false) {
+    const author = t.displayName
+      ? `${t.displayName} (${t.handle})`
+      : t.handle || "Unknown";
+
+    // Add author indicator for OP replies in the replies section
+    const opIndicator = isOpReply ? " 👤 **Author's Reply**" : "";
+
+    lines.push(`${heading} ${author}${opIndicator}`);
+
+    // Timestamp with link if available
+    if (t.timestamp) {
+      if (t.tweetUrl) {
+        lines.push(`*[${formatTimestamp(t.timestamp)}](${t.tweetUrl})*`);
+      } else {
+        lines.push(`*${formatTimestamp(t.timestamp)}*`);
+      }
+    }
+
+    // "Replying to" context (if present)
+    if (t.replyingTo && t.replyingTo.length > 0) {
+      lines.push(`*Replying to ${t.replyingTo.join(" ")}*`);
+    }
+
+    lines.push(``);
+
+    // Tweet body
+    if (t.text) {
+      lines.push(t.text);
+      lines.push(``);
+    }
+
+    // Quoted tweet (as blockquote with attribution)
+    if (t.quotedTweet) {
+      lines.push(`> **Quoting ${t.quotedTweet.author || ""}:**`);
+      t.quotedTweet.text
+        .split("\n")
+        .forEach((l) => lines.push(`> ${l}`));
+      lines.push(``);
+    }
+  }
+
+  /**
    * Convert an array of parsed tweets into a Markdown document.
    */
   function tweetsToMarkdown(tweets, pageUrl) {
     const lines = [];
 
-    // Extract original poster from URL (more reliable than i===0)
+    if (tweets.length === 0) return "";
+
+    // Extract original poster from URL
     const opHandle = extractAuthorFromUrl(pageUrl);
-    let opIndex = -1;
+
+    // Find the index of the first OP tweet (the main tweet)
+    let mainTweetIndex = -1;
     if (opHandle) {
-      opIndex = tweets.findIndex(t => t.handle === opHandle);
+      mainTweetIndex = tweets.findIndex(t => t.handle === opHandle);
     }
-    if (opIndex === -1) opIndex = 0; // Fallback to first tweet
+    if (mainTweetIndex === -1) mainTweetIndex = 0; // Fallback to first tweet
 
-    tweets.forEach((t, i) => {
-      // OP = ##, replies = ###
-      const heading = (i === opIndex) ? "##" : "###";
-      const author = t.displayName
-        ? `${t.displayName} (${t.handle})`
-        : t.handle || "Unknown";
+    // -- Render the main tweet --
+    const mainTweet = tweets[mainTweetIndex];
+    renderTweet(mainTweet, "##", lines, false);
 
-      lines.push(`${heading} ${author}`);
+    // Get remaining tweets (everything after the main tweet, in order)
+    const remainingTweets = tweets.slice(mainTweetIndex + 1);
 
-      // Timestamp (no link)
-      if (t.timestamp) {
-        lines.push(`*${formatTimestamp(t.timestamp)}*`);
-      }
+    // -- Add visual separator if there are replies --
+    if (remainingTweets.length > 0) {
       lines.push(``);
+      lines.push(`---`);
+      lines.push(``);
+      lines.push(`## 💬 Replies`);
+      lines.push(``);
+    }
 
-      // Tweet body
-      if (t.text) {
-        lines.push(t.text);
-        lines.push(``);
-      }
-
-      // Quoted tweet (as blockquote with attribution)
-      if (t.quotedTweet) {
-        lines.push(`> **Quoting ${t.quotedTweet.author || ""}:**`);
-        t.quotedTweet.text
-          .split("\n")
-          .forEach((l) => lines.push(`> ${l}`));
-        lines.push(``);
-      }
+    // -- Render all remaining tweets in chronological order --
+    remainingTweets.forEach((t) => {
+      // Check if this is the OP replying in the thread
+      const isOpReply = (t.handle === opHandle);
+      renderTweet(t, "###", lines, isOpReply);
     });
 
     return lines.join("\n");
