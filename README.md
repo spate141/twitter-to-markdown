@@ -25,13 +25,12 @@ Scrape any Twitter/X conversation (tweet + all replies) and convert it into clea
 
 The generated Markdown includes:
 
-- **Header** with source URL, capture timestamp, and tweet count
-- **Original tweet** as `##` heading with author, handle, timestamp (linked), and full text
+- **Original tweet** as `##` heading with author, handle, and timestamp
 - **Replies** as `###` headings
-- **Quoted tweets** rendered as blockquotes
-- **Media markers** (📷 Image, 🎥 Video)
-- **Engagement metrics** (replies, reposts, likes, bookmarks, views)
-- **Rich text** — hashtags and mentions bolded, links expanded from t.co
+- **Quoted tweets** rendered as blockquotes with attribution
+- **Rich text** — hashtags and mentions bolded, links expanded from t.co, emoji preserved
+
+**Pure conversational format** — no engagement metrics, no media markers, no metadata headers. Just the conversation in clean Markdown.
 
 ## Notes
 

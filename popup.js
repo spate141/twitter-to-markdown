@@ -2,8 +2,7 @@
   "use strict";
 
   const $ = (sel) => document.querySelector(sel);
-  const btnAll = $("#btn-all");
-  const btnVisible = $("#btn-visible");
+  const btnStart = $("#btn-start");
   const btnStop = $("#btn-stop");
   const stopGroup = $("#stop-group");
   const btnCopy = $("#btn-copy");
@@ -22,8 +21,7 @@
   }
 
   function setRunning(running) {
-    btnAll.disabled = running;
-    btnVisible.disabled = running;
+    btnStart.disabled = running;
     stopGroup.style.display = running ? "flex" : "none";
   }
 
@@ -55,18 +53,11 @@
 
   // ── Buttons ─────────────────────────────────────────────
 
-  btnAll.addEventListener("click", () => {
+  btnStart.addEventListener("click", () => {
     setRunning(true);
     setStatus("Starting…");
     previewSection.classList.remove("visible");
     sendToContent("scrape_all");
-  });
-
-  btnVisible.addEventListener("click", () => {
-    setRunning(true);
-    setStatus("Scraping visible tweets…");
-    previewSection.classList.remove("visible");
-    sendToContent("scrape_visible");
   });
 
   btnStop.addEventListener("click", () => {
@@ -116,6 +107,12 @@
       previewEl.textContent = msg.markdown;
       previewSection.classList.add("visible");
       setStatus(`Done! ${msg.count} tweets captured.`, "success-msg");
+    } else if (msg.type === "spam_detected") {
+      setRunning(false);
+      currentMarkdown = msg.markdown;
+      previewEl.textContent = msg.markdown;
+      previewSection.classList.add("visible");
+      setStatus(`Done! ${msg.count} tweets captured. (Stopped at spam indicator)`, "success-msg");
     } else if (msg.type === "aborted") {
       setRunning(false);
       setStatus("Stopped by user.");
