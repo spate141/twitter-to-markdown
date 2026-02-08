@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      width: 380px;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: #15202b;
+      color: #e7e9ea;
+      padding: 16px;
+    }
+
+    h1 {
+      font-size: 16px;
+      font-weight: 700;
+      margin-bottom: 4px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    h1 .icon { font-size: 20px; }
+
+    .subtitle {
+      font-size: 12px;
+      color: #8899a6;
+      margin-bottom: 16px;
+    }
+
+    .btn-group {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+
+    button {
+      flex: 1;
+      padding: 10px 12px;
+      border: none;
+      border-radius: 9999px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: opacity 0.15s;
+    }
+    button:hover { opacity: 0.85; }
+    button:disabled { opacity: 0.4; cursor: not-allowed; }
+
+    .btn-primary {
+      background: #1d9bf0;
+      color: #fff;
+    }
+    .btn-secondary {
+      background: #273340;
+      color: #e7e9ea;
+    }
+    .btn-danger {
+      background: #f4212e;
+      color: #fff;
+    }
+    .btn-success {
+      background: #00ba7c;
+      color: #fff;
+    }
+
+    #status {
+      font-size: 12px;
+      color: #8899a6;
+      min-height: 18px;
+      margin-bottom: 12px;
+    }
+
+    #preview-section {
+      display: none;
+    }
+    #preview-section.visible {
+      display: block;
+    }
+
+    .preview-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+    .preview-header span {
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: #8899a6;
+    }
+
+    .action-btns {
+      display: flex;
+      gap: 6px;
+    }
+    .action-btns button {
+      flex: none;
+      padding: 6px 14px;
+      font-size: 12px;
+    }
+
+    #preview {
+      background: #192734;
+      border: 1px solid #38444d;
+      border-radius: 8px;
+      padding: 12px;
+      max-height: 300px;
+      overflow-y: auto;
+      font-family: "SF Mono", "Fira Code", "Cascadia Code", monospace;
+      font-size: 11px;
+      line-height: 1.5;
+      white-space: pre-wrap;
+      word-break: break-word;
+      color: #d9d9d9;
+    }
+
+    .error { color: #f4212e; }
+    .success-msg { color: #00ba7c; font-weight: 600; }
+
+    /* Scrollbar */
+    #preview::-webkit-scrollbar { width: 6px; }
+    #preview::-webkit-scrollbar-track { background: transparent; }
+    #preview::-webkit-scrollbar-thumb { background: #38444d; border-radius: 3px; }
+  </style>
+</head>
+<body>
+  <h1><span class="icon">🐦</span> Twitter → Markdown</h1>
+  <p class="subtitle">Scrape tweets from this page and convert to Markdown</p>
+
+  <div class="btn-group">
+    <button id="btn-all" class="btn-primary">📜 Scroll & Scrape All</button>
+    <button id="btn-visible" class="btn-secondary">⚡ Scrape Visible</button>
+  </div>
+  <div class="btn-group" id="stop-group" style="display:none;">
+    <button id="btn-stop" class="btn-danger">⏹ Stop Scrolling</button>
+  </div>
+
+  <div id="status"></div>
+
+  <div id="preview-section">
+    <div class="preview-header">
+      <span>Markdown Output</span>
+      <div class="action-btns">
+        <button id="btn-copy" class="btn-success">📋 Copy</button>
+        <button id="btn-download" class="btn-secondary">💾 .md</button>
+      </div>
+    </div>
+    <pre id="preview"></pre>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>
