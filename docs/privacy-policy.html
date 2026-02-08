@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Privacy Policy — Twitter/X to Markdown</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400&display=swap');
+
+    :root {
+      --bg: #0e1117;
+      --surface: #161b22;
+      --border: #30363d;
+      --text: #e6edf3;
+      --text-muted: #8b949e;
+      --accent: #1d9bf0;
+      --accent-dim: rgba(29, 155, 240, 0.12);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'IBM Plex Sans', -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+      min-height: 100vh;
+    }
+
+    .header-bar {
+      border-bottom: 1px solid var(--border);
+      padding: 20px 0;
+      background: var(--surface);
+    }
+
+    .container {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    .header-bar .container {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .logo {
+      width: 36px;
+      height: 36px;
+      background: var(--accent);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'IBM Plex Mono', monospace;
+      font-weight: 600;
+      font-size: 13px;
+      color: #fff;
+      flex-shrink: 0;
+    }
+
+    .header-title {
+      font-size: 16px;
+      font-weight: 600;
+    }
+
+    .header-title span {
+      color: var(--text-muted);
+      font-weight: 400;
+    }
+
+    main.container {
+      padding-top: 48px;
+      padding-bottom: 80px;
+    }
+
+    h1 {
+      font-size: 32px;
+      font-weight: 600;
+      letter-spacing: -0.5px;
+      margin-bottom: 8px;
+    }
+
+    .effective-date {
+      color: var(--text-muted);
+      font-size: 14px;
+      margin-bottom: 48px;
+    }
+
+    h2 {
+      font-size: 18px;
+      font-weight: 600;
+      margin-top: 40px;
+      margin-bottom: 12px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    p {
+      margin-bottom: 16px;
+      color: var(--text);
+    }
+
+    ul {
+      margin-bottom: 16px;
+      padding-left: 24px;
+    }
+
+    li {
+      margin-bottom: 8px;
+      color: var(--text);
+    }
+
+    .highlight-box {
+      background: var(--accent-dim);
+      border-left: 3px solid var(--accent);
+      padding: 16px 20px;
+      border-radius: 0 8px 8px 0;
+      margin: 24px 0;
+      font-size: 15px;
+    }
+
+    .highlight-box strong {
+      color: var(--accent);
+    }
+
+    code {
+      font-family: 'IBM Plex Mono', monospace;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 13px;
+    }
+
+    a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 24px 0;
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 13px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header-bar">
+    <div class="container">
+      <div class="logo">Md</div>
+      <div class="header-title">Twitter/X to Markdown <span>· Privacy Policy</span></div>
+    </div>
+  </div>
+
+  <main class="container">
+    <h1>Privacy Policy</h1>
+    <p class="effective-date">Effective date: February 8, 2026</p>
+
+    <div class="highlight-box">
+      <strong>TL;DR</strong> — This extension processes everything locally on your device. No data is collected, stored, transmitted, or shared with anyone.
+    </div>
+
+    <h2>1. What This Extension Does</h2>
+    <p>
+      Twitter/X to Markdown is a browser extension that reads publicly visible tweet text and conversation threads from Twitter/X pages and converts them into Markdown format. All processing happens entirely within your browser.
+    </p>
+
+    <h2>2. Data We Collect</h2>
+    <p><strong>None.</strong> This extension does not collect, store, or transmit any data whatsoever. Specifically:</p>
+    <ul>
+      <li>No personally identifiable information</li>
+      <li>No authentication credentials or tokens</li>
+      <li>No browsing history or web activity</li>
+      <li>No analytics, telemetry, or usage tracking</li>
+      <li>No cookies or local storage data</li>
+    </ul>
+
+    <h2>3. Data We Access</h2>
+    <p>
+      When you click the extension and initiate a scrape, the extension reads the following from the currently active Twitter/X page:
+    </p>
+    <ul>
+      <li>Tweet text content</li>
+      <li>Display names and usernames (public profile information)</li>
+      <li>Timestamps</li>
+      <li>Engagement metrics (likes, reposts, etc.)</li>
+      <li>Media indicators (whether a tweet contains photos or videos)</li>
+    </ul>
+    <p>
+      This information is read from the page DOM, converted to Markdown, and presented to you within the extension popup. It is <strong>never</strong> sent to any server, API, or third party.
+    </p>
+
+    <h2>4. How Data Is Processed</h2>
+    <p>
+      All data processing occurs locally in your browser using JavaScript. The generated Markdown is either copied to your clipboard or downloaded as a <code>.md</code> file — both actions happen entirely on your device.
+    </p>
+
+    <h2>5. Third-Party Services</h2>
+    <p>
+      This extension does not use any third-party services, analytics platforms, remote APIs, or external scripts. No remote code is loaded or executed.
+    </p>
+
+    <h2>6. Permissions Explained</h2>
+    <ul>
+      <li><strong><code>activeTab</code></strong> — Allows the extension to access the currently open Twitter/X tab when you click the extension icon.</li>
+      <li><strong><code>scripting</code></strong> — Used as a fallback to inject the content script if it hasn't loaded on an already-open Twitter tab.</li>
+      <li><strong>Host permissions</strong> (<code>twitter.com</code>, <code>x.com</code>, <code>mobile.twitter.com</code>) — Required for the content script to run on Twitter/X pages. No other websites are accessed.</li>
+    </ul>
+
+    <h2>7. Data Sharing</h2>
+    <p>
+      We do not sell, transfer, or share any user data with any third party for any reason, including advertising, analytics, or creditworthiness assessment.
+    </p>
+
+    <h2>8. Children's Privacy</h2>
+    <p>
+      This extension does not knowingly collect any information from anyone, including children under the age of 13.
+    </p>
+
+    <h2>9. Changes to This Policy</h2>
+    <p>
+      If this privacy policy is updated, the changes will be posted on this page with a revised effective date. Since the extension collects no data, material changes are unlikely.
+    </p>
+
+    <h2>10. Contact</h2>
+    <p>
+      If you have questions about this privacy policy, please open an issue on the
+      <a href="https://github.com/spate141/twitter-to-markdown" id="repo-link">GitHub repository</a>
+      or reach out via the extension's Chrome Web Store listing.
+    </p>
+  </main>
+
+  <footer>
+    <div class="container">
+      Twitter/X to Markdown · Open source Chrome extension
+    </div>
+  </footer>
+
+</body>
+</html>
